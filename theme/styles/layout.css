@@ -1,0 +1,192 @@
+/* ============================================================
+   slidev-theme-academic — LaTeX-consistent, lightly techy.
+   Computer Modern Serif for text, JetBrains Mono for furniture.
+   ============================================================ */
+
+:root {
+  --cm: 'Computer Modern Serif', 'Latin Modern Roman', Georgia, 'Times New Roman', serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --paper: #ffffff;
+  --ink: #14161c;
+  --muted: #474d5a;
+  --faint: #8b909d;
+  --rule: rgba(20, 22, 28, 0.14);
+  --rule-strong: rgba(20, 22, 28, 0.28);
+  --accent: #1b45c4;          /* hyperref-blue, reads as "techy" without shouting */
+  --accent-soft: rgba(27, 69, 196, 0.08);
+  --accent-border: rgba(27, 69, 196, 0.28);
+  --surface: #f6f7f9;
+}
+
+.dark {
+  --paper: #0d0f14;
+  --ink: #eceef3;
+  --muted: #aab0bd;
+  --faint: #6b7280;
+  --rule: rgba(255, 255, 255, 0.14);
+  --rule-strong: rgba(255, 255, 255, 0.28);
+  --accent: #8aa6ff;
+  --accent-soft: rgba(138, 166, 255, 0.12);
+  --accent-border: rgba(138, 166, 255, 0.34);
+  --surface: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Base ── */
+.slidev-layout {
+  font-family: var(--cm);
+  color: var(--ink);
+  background: var(--paper);
+  padding: 3.2rem 3.6rem 3.4rem;
+  font-size: 1.02rem;
+  line-height: 1.5;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 { font-family: var(--cm); color: var(--ink); font-weight: 700; }
+.slidev-layout h1 { font-size: 2.1rem; line-height: 1.12; letter-spacing: 0; margin-bottom: 0.4rem; }
+.slidev-layout h2 { font-size: 1.5rem; font-weight: 400; color: var(--muted); }
+.slidev-layout h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; }
+
+/* Heading rule — the quiet "well-set paper" cue */
+.deck-default h1 { padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule); margin-bottom: 1.1rem; }
+
+.slidev-layout p { color: var(--ink); margin: 0.5rem 0; max-width: 60ch; }
+.slidev-layout strong { font-weight: 700; }
+.slidev-layout em { font-style: italic; }
+.slidev-layout a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-border); }
+
+.slidev-layout ul, .slidev-layout ol { margin: 0.4rem 0; padding-left: 0; list-style: none; }
+.slidev-layout li { position: relative; padding-left: 1.4rem; margin: 0.42rem 0; color: var(--ink); }
+.slidev-layout ul > li::before {
+  content: ""; position: absolute; left: 0.15rem; top: 0.62em;
+  width: 0.34rem; height: 0.34rem; background: var(--accent); border-radius: 50%;
+}
+.slidev-layout ol { counter-reset: it; }
+.slidev-layout ol > li { counter-increment: it; padding-left: 1.7rem; }
+.slidev-layout ol > li::before {
+  content: counter(it) "."; position: absolute; left: 0; top: 0;
+  font-family: var(--mono); font-size: 0.8em; color: var(--accent); font-weight: 500;
+}
+.slidev-layout li li { color: var(--muted); font-size: 0.95em; }
+.slidev-layout li li::before { background: transparent; border: 1.5px solid var(--accent-border); }
+
+.slidev-layout blockquote {
+  border-left: 2px solid var(--accent); padding-left: 1rem;
+  color: var(--ink); font-style: italic; margin: 0.6rem 0;
+}
+
+/* Code (Shiki): monospace, boxed, techy */
+.slidev-layout code { font-family: var(--mono); font-size: 0.82em; background: var(--surface); border: 1px solid var(--rule); padding: 0.05em 0.35em; border-radius: 3px; }
+.slidev-layout pre { border: 1px solid var(--rule); border-radius: 6px; }
+.slidev-layout pre code { border: 0; background: none; }
+
+/* Tables — booktabs-style rules, no vertical lines */
+.slidev-layout table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+.slidev-layout th, .slidev-layout td { padding: 0.4rem 0.7rem; text-align: left; border: 0; }
+.slidev-layout thead th { font-family: var(--mono); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); border-bottom: 1.5px solid var(--rule-strong); }
+.slidev-layout tbody tr { border-bottom: 1px solid var(--rule); }
+.slidev-layout tbody tr:last-child { border-bottom: 1.5px solid var(--rule-strong); }
+
+/* Math (KaTeX) inherits ink colour */
+.slidev-layout .katex { color: var(--ink); font-size: 1.04em; }
+
+/* ── Kicker (mono eyebrow above a title) ── */
+.kicker {
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+  display: inline-block; margin-bottom: 0.5rem;
+}
+
+/* ── Cover ── */
+.deck-cover { display: flex; flex-direction: column; justify-content: center; }
+.deck-cover .rule-top { width: 3.5rem; height: 2px; background: var(--accent); margin-bottom: 1.4rem; }
+.deck-cover h1 { font-size: 2.9rem; line-height: 1.08; max-width: 22ch; }
+.deck-cover h2 { font-size: 1.35rem; margin-top: 0.6rem; max-width: 42ch; }
+.deck-cover .meta { margin-top: 2rem; font-family: var(--mono); font-size: 0.82rem; color: var(--muted); line-height: 1.9; }
+.deck-cover .meta .sep { color: var(--faint); }
+
+/* ── Section divider ── */
+.deck-section { display: flex; flex-direction: column; justify-content: center; background: var(--accent-soft); }
+.deck-section .idx { font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem; }
+.deck-section h1 { font-size: 2.6rem; max-width: 20ch; }
+.deck-section .rule { width: 4rem; height: 3px; background: var(--accent); margin-top: 1.2rem; }
+
+/* ── Statement / big quote ── */
+.deck-statement { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.deck-statement .big { font-size: 1.9rem; line-height: 1.35; max-width: 26ch; font-style: italic; }
+.deck-statement .attr { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); margin-top: 1.4rem; }
+
+/* ── Figure ── */
+.deck-figure { display: flex; flex-direction: column; }
+.deck-figure .fig-body { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; padding: 0.5rem 0; }
+.deck-figure .fig-body img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.deck-figure figcaption, .deck-figure .cap { text-align: center; color: var(--muted); font-size: 0.92rem; margin-top: 0.6rem; }
+.deck-figure .src { text-align: center; font-family: var(--mono); font-size: 0.7rem; color: var(--faint); margin-top: 0.25rem; }
+
+/* ── References ── */
+.deck-references .refs { list-style: none; padding: 0; margin: 0.6rem 0 0; column-gap: 2.4rem; }
+.deck-references .refs li {
+  padding-left: 1.6rem; text-indent: -1.6rem; /* hanging indent, APA-style */
+  font-size: 0.8rem; line-height: 1.45; color: var(--muted); margin: 0.45rem 0; break-inside: avoid;
+}
+.deck-references .refs li::before { content: none; }
+.deck-references .refs em { font-style: italic; color: var(--ink); }
+
+/* ── End ── */
+.deck-end { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.deck-end h1 { font-size: 2.4rem; }
+.deck-end .contact { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); margin-top: 0.8rem; line-height: 1.9; }
+
+/* ── Inline citation ── */
+.cite { white-space: nowrap; }
+.cite a, .cite span { font-size: 0.9em; color: var(--accent); border: 0; }
+.cite .unknown { color: #b91c1c; }
+
+/* ── Components: cards / stats / callouts ── */
+.deck-grid { display: grid; gap: 0.9rem; }
+.deck-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.deck-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.card { border: 1px solid var(--rule); border-radius: 8px; padding: 0.9rem 1.1rem; }
+.card.accent { background: var(--accent-soft); border-color: var(--accent-border); }
+.card h4 { font-weight: 700; margin-bottom: 0.3rem; }
+.card p { font-size: 0.9rem; color: var(--muted); margin: 0; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 0.7rem 1rem; border-radius: 0 6px 6px 0; }
+
+.stat-row { display: flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.stat { flex: 1; padding: 0.8rem 1rem; border-right: 1px solid var(--rule); }
+.stat:last-child { border-right: 0; }
+.stat .v { font-size: 1.7rem; font-weight: 700; line-height: 1; }
+.stat .l { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--faint); margin-top: 0.3rem; }
+
+/* ── Two columns ── */
+.deck-twocols .tc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; align-items: start; }
+.deck-twocols h1 { padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); margin-bottom: 0.7rem; }
+
+/* ── Meta lists on chromeless layouts (cover / section / end / statement) ── */
+.deck-cover ul, .deck-end ul, .deck-statement ul,
+.deck-cover ol, .deck-end ol { margin-top: 0.6rem; }
+.deck-cover li, .deck-end li, .deck-statement li {
+  padding-left: 0; font-family: var(--mono); font-size: 0.82rem;
+  color: var(--muted); margin: 0.12rem 0;
+}
+.deck-cover ul > li::before, .deck-end ul > li::before, .deck-statement ul > li::before { content: none; }
+.deck-cover ul { margin-top: 2rem; line-height: 1.9; }
+
+/* Statement: promote the paragraph/quote to display size */
+.deck-statement p, .deck-statement blockquote {
+  font-size: 1.9rem; line-height: 1.35; max-width: 26ch; font-style: italic;
+  color: var(--ink); border: 0; padding: 0; margin: 0 auto;
+}
+.deck-statement .attr { font-family: var(--mono); font-size: 0.78rem; font-style: normal; color: var(--muted); margin-top: 1.4rem; }
+
+/* ── Global footer furniture ── */
+.deck-footer {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.5rem 1.4rem; font-family: var(--mono); font-size: 0.62rem;
+  color: var(--faint); letter-spacing: 0.04em;
+}
+.deck-footer::before { content: ""; position: absolute; left: 1.4rem; right: 1.4rem; top: 0; height: 1px; background: var(--rule); }
+.deck-footer .pg b { color: var(--muted); font-weight: 500; }

@@ -1,5 +1,8 @@
 node_modules/
 dist/
+.slidev/
+theme/generated/
+references.bib
 *.pdf
 *.pptx
 .DS_Store

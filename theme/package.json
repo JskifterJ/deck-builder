@@ -1,0 +1,18 @@
+{
+  "name": "slidev-theme-academic",
+  "version": "0.1.0",
+  "description": "LaTeX-consistent, lightly-techy Slidev theme for academic talks (Computer Modern + mono).",
+  "keywords": ["slidev-theme", "slidev", "academic", "latex"],
+  "license": "MIT",
+  "engines": {
+    "slidev": ">=0.48.0"
+  },
+  "slidev": {
+    "defaults": {
+      "aspectRatio": "16/9",
+      "canvasWidth": 980,
+      "transition": "fade",
+      "highlighter": "shiki"
+    }
+  }
+}

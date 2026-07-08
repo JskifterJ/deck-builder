@@ -1,74 +1,45 @@
 # Theming: colour, fonts, logo
 
-A theme is one JSON file in [`themes/`](../themes). Three ship with the builder:
+The look lives entirely in [`theme/`](../theme). It's a normal Slidev theme, so you change a few values and the whole deck follows.
 
-- **`academic-defence`** — light, serif display, restrained blue accent. Projector- and print-safe. Built for a timed defence.
-- **`minimal`** — neutral light, single sans-serif. Safe default for any topic.
-- **`dark`** — cool dark ground, cyan accent, for screen-first talks and demos.
+## Colour
 
-Pick one in frontmatter (`theme: dark`) or on the CLI (`--theme dark`). Point `--theme` at any `.json` path to use a custom file.
+All colours are CSS variables at the top of [`theme/styles/layout.css`](../theme/styles/layout.css):
 
-## Theme file shape
-
-```jsonc
-{
-  "name": "academic-defence",
-  "colors": {
-    "bg": "#ffffff",           // slide background
-    "surface": "#f5f6f8",      // card / table-header fill
-    "surfaceHover": "#eef0f3",
-    "border": "rgba(20,24,40,0.12)",
-    "borderStrong": "rgba(20,24,40,0.22)",
-    "text": "#141828",         // primary text
-    "muted": "...",            // body copy
-    "dim": "...",              // captions, metadata
-    "accent": "#0B5FFF",       // the one highlight colour
-    "accentSoft": "...",       // tinted fills
-    "accentBorder": "...",
-    "warn": "#B45309", "warnSoft": "...",
-    "danger": "#B91C1C", "dangerSoft": "..."
-  },
-  "fonts": {
-    "display": "'Source Serif 4', Georgia, serif",   // headings
-    "body": "'Inter', system-ui, sans-serif",        // everything else
-    "mono": "'JetBrains Mono', monospace",           // labels, metadata
-    "googleFonts": "family=Source+Serif+4:...&family=Inter:...&display=swap"
-  },
-  "logo": { "text": "", "src": "", "showMark": true },
-  "options": { "slideNumbers": true, "progress": true, "transitionDuration": "0.22s" }
+```css
+:root {
+  --paper: #ffffff;   /* slide background        */
+  --ink:   #14161c;   /* primary text + math     */
+  --muted: #474d5a;   /* secondary text          */
+  --faint: #8b909d;   /* captions, footer         */
+  --rule:  rgba(20,22,28,0.14);   /* hairlines    */
+  --accent:#1b45c4;   /* the one highlight (links, bullets, citations, rules) */
+  --accent-soft: rgba(27,69,196,0.08);
 }
 ```
 
-Every colour becomes a CSS variable (`--bg`, `--accent`, …). Components and layouts read those variables, so changing one value re-colours the whole deck.
+Change `--accent` to rebrand in one line. A `.dark` block a few lines down defines the dark variant (enable with `class: dark` in a slide's frontmatter, or set it deck-wide). Keep to **one** accent — the restraint is what makes it read like a well-set paper.
 
-## The logo (top-left mark)
+## Fonts
 
-- `logo.text` — a short wordmark (e.g. `"ACME"` or `"SMT · Defence"`).
-- `logo.src` — path to an SVG/PNG/JPG. **Local files are inlined as a data-URI**, so the output stays a single portable file.
-- `logo.showMark` — draws the small accent dot when there's no image.
+Defined in [`theme/styles/fonts.css`](../theme/styles/fonts.css):
 
-## Quick overrides without editing a theme file
+- **Computer Modern Serif** — the LaTeX typeface, loaded as a web font. Used for all text and (via KaTeX) math, so slides match the thesis.
+- **JetBrains Mono** — the "techy" hint: kickers, labels, table headers, the footer, slide numbers.
 
-Nudge a theme per-deck straight from frontmatter — handy for "make the accent match this brand":
+To swap fonts, change the `@import` URLs and the `--cm` / `--mono` variables. For a stricter LaTeX look, keep Computer Modern; for a more modern-technical feel, point `--cm` at a grotesk (Inter, IBM Plex Sans) and keep the mono.
 
-```markdown
----
-theme: minimal
-accent: "#7C3AED"        # override the accent colour
-bg: "#0a0a0a"            # override background
-text: "#f5f5f5"          # override text
-displayFont: "'Fraunces', serif"
-bodyFont: "'Work Sans', sans-serif"
-googleFonts: "family=Fraunces:wght@400;600&family=Work+Sans:wght@300;400;600&display=swap"
-logo: "ACME"             # wordmark
-logoSrc: "assets/logo.svg"
----
-```
+> Fonts load from CDNs (jsDelivr for Computer Modern, Google Fonts for JetBrains Mono) and cache after first load. For a fully offline deck, vendor the font files into `theme/` and rewrite the `@import`s to local `@font-face`.
 
-## Fonts note
+## Logo / wordmark
 
-Fonts load from Google Fonts via CDN (needs internet on first open, then cached). To make a deck fully offline, replace the `<link>` in the output with an embedded `@font-face` block, or set `body`/`display` to system fonts (e.g. `Georgia`, `system-ui`) and drop `googleFonts`.
+There's no fixed logo — the top-left mark is whatever you put in `<Kicker>` on a slide, and the running footer shows the deck `title`. To add an image logo, drop it in `theme/` and reference it from a layout or a `global-top.vue`. To change the footer, edit [`theme/global-bottom.vue`](../theme/global-bottom.vue).
 
-## Making a new theme
+## Layouts and components
 
-Copy `themes/minimal.json`, rename it, edit the values, then `--theme themes/your-theme.json`. Keep the accent to **one** colour and keep `warn`/`danger` for status only — that restraint is what makes the decks read as one system.
+- Layouts are Vue files in [`theme/layouts/`](../theme/layouts) — each is a thin wrapper with a root class; the CSS in `layout.css` does the styling. Add a layout by adding a `.vue` file and a matching `.deck-<name>` CSS block.
+- Components are in [`theme/components/`](../theme/components) and auto-import globally.
+
+## Aspect ratio / size
+
+Set in [`theme/package.json`](../theme/package.json) under `slidev.defaults` (`aspectRatio`, `canvasWidth`). Default is 16:9 at 980px.

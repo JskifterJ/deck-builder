@@ -1,18 +1,21 @@
 {
   "name": "deck-builder",
-  "version": "0.1.0",
-  "description": "Turn a dot-dash outline + a theme (colors, fonts, logo) into a self-contained HTML presentation. General-purpose; ships an academic-defence theme.",
   "type": "module",
-  "bin": {
-    "deck-builder": "bin/build.mjs"
-  },
+  "private": true,
+  "description": "A Slidev theme + Zotero .bib citation addon for LaTeX-consistent, lightly-techy academic presentations.",
   "scripts": {
-    "build": "node bin/build.mjs",
-    "example": "node bin/build.mjs examples/thesis-defense.deck.md -o dist/thesis-defense.html"
+    "bib": "node scripts/build-bib.mjs",
+    "predev": "npm run bib",
+    "dev": "slidev slides.md --open",
+    "prebuild": "npm run bib",
+    "build": "slidev build slides.md --base ./ --out dist",
+    "export": "slidev export slides.md --output dist/deck.pdf"
   },
-  "keywords": ["slides", "presentation", "deck", "markdown", "academic", "thesis-defence"],
-  "license": "MIT",
   "dependencies": {
-    "marked": "^12.0.0"
+    "@slidev/cli": "latest",
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.61.1"
   }
 }

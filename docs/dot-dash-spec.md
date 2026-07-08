@@ -1,79 +1,111 @@
-# The dot-dash format
+# Authoring format (the dot-dash)
 
-You write a deck as one Markdown file (`*.deck.md`). The build script turns it into a single self-contained HTML file. "Dot-dash" just means: **your nested bullet outline is the content** — you draft the talk as an outline and the builder renders it.
+You write the deck as one Slidev Markdown file, `slides.md`. "Dot-dash" means the talk starts life as a nested bullet outline — you draft the argument as bullets, then promote layouts and add citations. Slidev renders it; this theme styles it.
 
 ## Anatomy
 
 ```markdown
 ---
-title: My Talk
-theme: academic-defence
+theme: ./theme          # this repo's academic theme
+title: My Talk          # shown in the running footer
+transition: fade
+mdc: true
+layout: cover           # layout for the FIRST slide
 ---
 
-<!-- layout: title -->
 # Talk Title
 ## Subtitle
-- Presenter name
-- Date
+- Presenter · Date
 
+---
+layout: default
 ---
 
 # A content slide
-- top-level point
-  - a sub-point (indent two spaces)
-  - another sub-point
+- top-level point [@somekey]
+  - a sub-point
 - second point
 
-<!-- note: What I say out loud on this slide. Only I see this. -->
+<!-- Speaker notes live in the last HTML comment. Only you see them. -->
 ```
 
-## Rules
-
-- **Frontmatter** — the block between the first pair of `---` lines. Sets deck-wide options (see below).
-- **Slide breaks** — a line containing only `---` starts a new slide.
-- **Content** — normal Markdown: headings, bullets (`-`), numbered lists (`1.`), **bold**, *italic* (renders as accent colour), `code`, tables, `![images](path)`, links, block­quotes (`>`).
-- **Nesting** — indent bullets by two spaces to nest them. Nested items render smaller with a hollow marker.
-
-## Per-slide directives (HTML comments)
-
-| Directive | Effect |
-|---|---|
-| `<!-- layout: NAME -->` | Pick a layout (default `content`). See list below. |
-| `<!-- note: ... -->` | Speaker notes — shown only in presenter view (`P`). Can span multiple lines and use Markdown. |
-| `<!-- col -->` | Inside `layout: two-col`, splits the slide into left / right columns. |
+- The first `---` block is the deck **headmatter** (deck-wide config).
+- Each subsequent slide is separated by `---`, and may start with its own frontmatter block setting `layout:` (and any Slidev options).
+- Content is ordinary Markdown: headings, bullets (`-`), numbered lists, **bold**, *italic*, `code`, tables, `![images]()`, blockquotes.
+- Nest bullets by indenting two spaces.
 
 ## Layouts
 
+Set `layout:` in a slide's frontmatter.
+
 | Layout | Use for |
 |---|---|
-| `title` | Opening slide — big centered title, subtitle, meta list |
-| `section` | Divider between parts — large heading on a tinted panel |
-| `content` | Default — heading on top, body below |
-| `two-col` | Two columns, split on `<!-- col -->` |
-| `figure` | A centered image with caption / source text |
-| `table` | A slide built around one large table |
-| `quote` | A big centered pull-quote (epigraph, key finding) |
-| `references` | Small mono-styled, scrollable citation list |
-| `thanks` | Closing / questions slide |
+| `cover` | Opening slide — big title, subtitle, mono meta list |
+| `section` | Divider — put a `<Kicker>Part N</Kicker>` above the heading |
+| `default` | Standard content — heading with a hairline rule, then body |
+| `two-cols` | Two columns; put right-column content after a `::right::` line |
+| `figure` | Centered image with caption / source (use the `<Figure>` component) |
+| `statement` | One big centered line — an epigraph or key finding |
+| `references` | The bibliography (drop in `<References />`) |
+| `end` | Closing / questions slide |
 
-## Incremental reveals
+## Citations (Zotero `.bib`)
 
-Give any inline-HTML element the class `step` to hide it until you press → :
+Write markers inline; the preparser turns them into citation components before rendering.
+
+| You write | Renders |
+|---|---|
+| `[@jeon2019analysis]` | (Jeon et al., 2019) — linked to the source URL |
+| `[@key, p.12]` | (Author, 2024, p.12) |
+| `[CITE: key]` | same as `[@key]` (matches the thesis prose convention) |
+
+Then, on your references slide:
 
 ```markdown
-<p class="step">This line appears on the next click.</p>
+---
+layout: references
+---
+# Selected references
+<References />
 ```
 
-## Optional components
+- `<References />` lists **only the keys cited in the deck**, alphabetically, APA-style with hanging indents.
+- `<References all />` lists every entry in the `.bib`.
+- `<References :keys="['jacobides2018ecosystems','jeon2019analysis']" />` lists a fixed set.
 
-Any slide can include inline HTML that uses the component classes (`card`, `grid-3`,
-`callout`, `stat-bar`, `chip`, `tag`, …). They recolour automatically per theme.
-See [`components.css`](../src/components.css) for the full list.
+Unknown keys render as a red `[?key]` so you catch typos. Keys are identical to your thesis LaTeX `\cite` keys, so the deck and the thesis stay consistent. See [`citations.md`](citations.md).
+
+## Math
+
+Standard LaTeX via KaTeX — inline `$x$` and display `$$ ... $$`. It renders in Computer Modern, matching the thesis.
+
+## Reveals
+
+Wrap content to reveal it on click:
+
+```markdown
+<v-click>
+
+This appears on the next arrow press.
+
+</v-click>
+```
+
+Or reveal list items one at a time with `<v-clicks>`. Slidev docs: <https://sli.dev/guide/animations>.
+
+## Components
+
+Auto-imported, usable on any slide:
+
+- `<Kicker>ROUTING · PART TWO</Kicker>` — a mono eyebrow above a title.
+- `<Figure src="chart.svg" caption="…" source="…" />` — image with caption/source.
+- `<Stat v="14" l="Interviews" />` inside `<div class="stat-row">…</div>` — a stat band.
+- CSS helpers for inline HTML: `.card` / `.card.accent`, `.callout`, `.deck-grid.cols-3`, `.src`.
 
 ## Build
 
 ```bash
-node bin/build.mjs my-talk.deck.md               # → dist/my-talk.html
-node bin/build.mjs my-talk.deck.md --theme dark  # override theme
-node bin/build.mjs my-talk.deck.md -o out.html   # choose output path
+npm run dev      # live preview
+npm run export   # PDF
+npm run build    # static site
 ```
