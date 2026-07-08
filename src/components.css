@@ -1,0 +1,75 @@
+/* ============================================================
+   deck-builder · components.css
+   Optional building blocks you can drop into any slide as inline
+   HTML. De-branded from the ICN deck system. All theme-variable
+   driven, so they recolour automatically per theme.
+   ============================================================ */
+
+/* Cards & grids */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 20px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.card:hover { border-color: var(--borderStrong); background: var(--surfaceHover); }
+.card-accent { background: var(--accentSoft); border: 1px solid var(--accentBorder); border-radius: 12px; padding: 18px 20px; }
+.card h4 { font-family: var(--body); font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.card p, .card-accent p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+/* Chips & tags */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  border: 1px solid var(--border); color: var(--muted);
+}
+.chip-accent { background: var(--accentSoft); border-color: var(--accentBorder); color: var(--accent); }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 4px;
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--surface); border: 1px solid var(--border); color: var(--muted);
+}
+
+/* Callout / alert */
+.callout {
+  padding: 14px 18px; border-radius: 8px;
+  background: var(--accentSoft); border: 1px solid var(--accentBorder);
+  border-left: 3px solid var(--accent);
+  font-size: 15px; color: var(--text); line-height: 1.6;
+}
+.callout-warn { background: var(--warnSoft); border-color: var(--warn); border-left-color: var(--warn); }
+.callout-danger { background: var(--dangerSoft); border-color: var(--danger); border-left-color: var(--danger); }
+
+/* Stat row */
+.stat-bar { display: flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.stat-item { flex: 1; padding: 14px 18px; border-right: 1px solid var(--border); background: var(--surface); }
+.stat-item:last-child { border-right: none; }
+.stat-val { font-family: var(--display); font-size: 30px; font-weight: 700; color: var(--text); line-height: 1.05; }
+.stat-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-top: 4px; }
+
+/* Comparison / data table (markdown tables also pick this up) */
+.slide-inner table, table.cmp { width: 100%; border-collapse: collapse; font-size: 15px; }
+.slide-inner th, .slide-inner td, table.cmp th, table.cmp td {
+  border: 1px solid var(--border); padding: 10px 14px; text-align: left; vertical-align: top; color: var(--muted);
+}
+.slide-inner th, table.cmp th {
+  background: var(--surface); font-family: var(--mono); font-weight: 500; font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim);
+}
+.slide-inner tr:hover td { background: var(--surface); }
+
+/* Figure caption / source (use inside figure layout) */
+.figcaption { font-size: 14px; color: var(--muted); text-align: center; }
+.figsource { font-family: var(--mono); font-size: 11px; color: var(--dim); text-align: center; }
+
+/* Numbered step marker */
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accentSoft); border: 1px solid var(--accentBorder);
+  color: var(--accent); font-family: var(--mono); font-weight: 600; font-size: 13px;
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+}

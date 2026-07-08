@@ -1,0 +1,38 @@
+{
+  "name": "academic-defence",
+  "label": "Academic Defence",
+  "description": "Light, legible, projector- and print-safe. Serif display over humanist body, one restrained accent. Tuned for a timed thesis defence.",
+  "colors": {
+    "bg": "#ffffff",
+    "surface": "#f5f6f8",
+    "surfaceHover": "#eef0f3",
+    "border": "rgba(20,24,40,0.12)",
+    "borderStrong": "rgba(20,24,40,0.22)",
+    "text": "#141828",
+    "muted": "rgba(20,24,40,0.62)",
+    "dim": "rgba(20,24,40,0.40)",
+    "accent": "#0B5FFF",
+    "accentSoft": "rgba(11,95,255,0.10)",
+    "accentBorder": "rgba(11,95,255,0.30)",
+    "warn": "#B45309",
+    "warnSoft": "rgba(180,83,9,0.12)",
+    "danger": "#B91C1C",
+    "dangerSoft": "rgba(185,28,28,0.12)"
+  },
+  "fonts": {
+    "display": "'Source Serif 4', Georgia, 'Times New Roman', serif",
+    "body": "'Inter', system-ui, -apple-system, sans-serif",
+    "mono": "'JetBrains Mono', ui-monospace, monospace",
+    "googleFonts": "family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+  },
+  "logo": {
+    "text": "",
+    "src": "",
+    "showMark": true
+  },
+  "options": {
+    "slideNumbers": true,
+    "progress": true,
+    "transitionDuration": "0.22s"
+  }
+}

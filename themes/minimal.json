@@ -1,0 +1,38 @@
+{
+  "name": "minimal",
+  "label": "Minimal",
+  "description": "Neutral general-purpose light theme. Single sans-serif, quiet accent. Safe default for any topic.",
+  "colors": {
+    "bg": "#ffffff",
+    "surface": "#f7f7f8",
+    "surfaceHover": "#f0f0f2",
+    "border": "rgba(0,0,0,0.10)",
+    "borderStrong": "rgba(0,0,0,0.20)",
+    "text": "#18181b",
+    "muted": "rgba(24,24,27,0.60)",
+    "dim": "rgba(24,24,27,0.38)",
+    "accent": "#111827",
+    "accentSoft": "rgba(17,24,39,0.06)",
+    "accentBorder": "rgba(17,24,39,0.22)",
+    "warn": "#B45309",
+    "warnSoft": "rgba(180,83,9,0.12)",
+    "danger": "#B91C1C",
+    "dangerSoft": "rgba(185,28,28,0.12)"
+  },
+  "fonts": {
+    "display": "'Inter', system-ui, sans-serif",
+    "body": "'Inter', system-ui, -apple-system, sans-serif",
+    "mono": "'JetBrains Mono', ui-monospace, monospace",
+    "googleFonts": "family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+  },
+  "logo": {
+    "text": "",
+    "src": "",
+    "showMark": true
+  },
+  "options": {
+    "slideNumbers": true,
+    "progress": true,
+    "transitionDuration": "0.2s"
+  }
+}
